@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Camera, Settings, LogOut } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
 import fetchProfile from '../api/pwAuthApi';
-import '../assets/css/profile.css';
+import '../assets/css/Profile.css';
 import Loading from '../components/Loading';
 import Error from '../components/Error';
 
