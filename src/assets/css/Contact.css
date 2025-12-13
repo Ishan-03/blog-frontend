@@ -1,0 +1,82 @@
+/* Contact Page CSS */
+.contact-container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 120px 16px 60px;
+  /* top padding for fixed navbar */
+  display: flex;
+  justify-content: center;
+  font-family: sans-serif;
+}
+
+.contact-card {
+  background: white;
+  padding: 40px 32px;
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  max-width: 700px;
+  width: 100%;
+}
+
+.contact-title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 12px;
+  color: #2563eb;
+  text-align: center;
+}
+
+.contact-subtitle {
+  font-size: 1.25rem;
+  margin-bottom: 24px;
+  color: #6b7280;
+  text-align: center;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.contact-label {
+  font-weight: 500;
+  color: #374151;
+}
+
+.contact-input {
+  padding: 12px 16px;
+  border-radius: 12px;
+  border: 1px solid #d1d5db;
+  font-size: 1rem;
+  transition:
+    border 0.3s,
+    box-shadow 0.3s;
+}
+
+.contact-input:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+}
+
+.contact-textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.contact-btn {
+  padding: 12px 24px;
+  border-radius: 9999px;
+  background: #2563eb;
+  color: white;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s;
+  margin-top: 8px;
+}
+
+.contact-btn:hover {
+  background: #1d4ed8;
+}

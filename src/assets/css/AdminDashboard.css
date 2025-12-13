@@ -1,0 +1,167 @@
+/* Dashboard Layout */
+.dashboard-container {
+  padding-top: 6rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+@media (min-width: 768px) {
+  .dashboard-container {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .dashboard-container {
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
+}
+
+/* Headings */
+.dashboard-title {
+  font-size: 1.875rem;
+  font-weight: 700;
+  color: #1f2937;
+  /* gray-800 */
+}
+
+/* Stats Cards */
+.stats-card {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: 0.2s ease;
+}
+
+.stats-card:hover {
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.12);
+}
+
+.stats-label {
+  color: #6b7280;
+  /* gray-500 */
+}
+
+.stats-number {
+  margin-top: 0.5rem;
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: #111827;
+  /* gray-900 */
+}
+
+/* Create Button */
+.create-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #16a34a;
+  /* green-600 */
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 0.75rem;
+  font-weight: 500;
+  transition: 0.2s ease;
+  box-shadow: 0 2px 6px rgba(22, 163, 74, 0.3);
+}
+
+.create-btn:hover {
+  background: #15803d;
+  /* green-700 */
+  box-shadow: 0 4px 10px rgba(22, 163, 74, 0.4);
+}
+
+/* Table Wrapper */
+.table-card {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* Table Styling */
+.table-header {
+  background: #f3f4f6;
+  /* gray-100 */
+}
+
+.table-header th {
+  padding: 0.75rem 1.5rem;
+  text-align: left;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #6b7280;
+}
+
+.table-row {
+  transition: background 0.15s ease;
+}
+
+.table-row:hover {
+  background: #f9fafb;
+  /* gray-50 */
+}
+
+.table-cell {
+  padding: 1rem 1.5rem;
+  white-space: nowrap;
+}
+
+/* Status Badge */
+.category-badge {
+  background: #dbeafe;
+  /* blue-100 */
+  color: #1d4ed8;
+  /* blue-700 */
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+/* Action Buttons */
+.action-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  gap: 0.25rem;
+  transition: 0.2s ease;
+}
+
+.view-btn {
+  background: #dcfce7;
+  /* green-100 */
+  color: #15803d;
+  /* green-700 */
+}
+
+.view-btn:hover {
+  background: #bbf7d0;
+}
+
+.edit-btn {
+  background: #fef9c3;
+  /* yellow-100 */
+  color: #a16207;
+  /* yellow-700 */
+}
+
+.edit-btn:hover {
+  background: #fef08a;
+}
+
+.delete-btn {
+  background: #fee2e2;
+  /* red-100 */
+  color: #b91c1c;
+  /* red-700 */
+}
+
+.delete-btn:hover {
+  background: #fecaca;
+}

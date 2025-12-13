@@ -1,0 +1,17 @@
+{
+  "nav": {
+    "home": "Home",
+    "category": "Category",
+    "tech": "Tech",
+    "travel": "Travel",
+    "lifestyle": "Lifestyle",
+    "about": "About Us",
+    "contact": "Contact Us",
+    "profile": "Profile",
+    "dashboard": "Dashboard",
+    "logout": "Logout",
+    "signin": "Sign In",
+    "signup": "Sign Up",
+    "search": "Search..."
+  }
+}

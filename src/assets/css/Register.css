@@ -1,0 +1,284 @@
+/* ---------------- GLOBAL WRAPPER ---------------- */
+.register-container {
+  width: 100%;
+  min-height: 100vh;
+  padding-top: 120px;
+  padding-bottom: 60px;
+
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+
+  background: linear-gradient(135deg, #f1f5f9, #ffffff, #eef2ff);
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+/* ---------------- CARD ---------------- */
+.register-card {
+  width: 440px;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 40px 36px;
+  border-radius: 22px;
+
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  backdrop-filter: blur(22px);
+
+  box-shadow:
+    0 12px 40px rgba(0, 0, 0, 0.08),
+    0 0 0 4px rgba(255, 255, 255, 0.6) inset;
+
+  animation: fadeSlide 0.45s ease-out;
+}
+
+@keyframes fadeSlide {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.99);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ---------------- TITLES ---------------- */
+.register-title {
+  font-size: 30px;
+  font-weight: 800;
+  text-align: center;
+  letter-spacing: -0.5px;
+  margin-bottom: 8px;
+  color: #0f172a;
+}
+
+.register-subtitle {
+  text-align: center;
+  margin-bottom: 28px;
+  color: #64748b;
+  font-size: 15px;
+}
+
+/* ---------------- INPUT FIELDS ---------------- */
+.register-label {
+  font-weight: 600;
+  margin: 12px 0 6px;
+  color: #334155;
+  font-size: 14px;
+}
+
+.register-input {
+  width: 100%;
+  padding: 14px 15px;
+  border-radius: 12px;
+
+  background: #f8fafc;
+  border: 1px solid #dbe0e7;
+
+  font-size: 15px;
+  transition: 0.25s ease;
+}
+
+.register-input:hover {
+  background: #ffffff;
+}
+
+.register-input:focus {
+  border-color: #16a34a;
+  background: #ffffff;
+  box-shadow: 0 0 0 4px rgba(22, 163, 74, 0.18);
+}
+
+/* ---------------- PASSWORD TOGGLE ---------------- */
+.password-wrapper {
+  position: relative;
+}
+
+.password-toggle {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+
+  font-size: 22px;
+  cursor: pointer;
+  color: #94a3b8;
+
+  transition: 0.2s ease;
+}
+
+.password-toggle:hover {
+  color: #0f172a;
+}
+
+/* ---------------- ERROR STYLING ---------------- */
+.input-error {
+  border-color: #ef4444 !important;
+  background: #fff0f0 !important;
+}
+
+.error-text {
+  color: #ef4444;
+  font-size: 13px;
+  margin-top: 4px;
+}
+
+/* ---------------- BUTTON (GREEN PREMIUM) ---------------- */
+.register-btn {
+  margin-top: 32px;
+  padding: 15px;
+  width: 100%;
+
+  background: linear-gradient(135deg, #16a34a, #0f8b3b);
+  color: white;
+  border-radius: 14px;
+
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+
+  border: none;
+  cursor: pointer;
+  transition: 0.28s ease;
+
+  box-shadow: 0 6px 18px rgba(22, 163, 74, 0.25);
+}
+
+.register-btn:hover {
+  background: linear-gradient(135deg, #15803d, #0c742f);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(22, 163, 74, 0.35);
+}
+
+.register-btn:active {
+  transform: translateY(1px);
+  box-shadow: 0 4px 12px rgba(22, 163, 74, 0.3);
+}
+
+/* ---------------- FOOTER ---------------- */
+.register-footer {
+  text-align: center;
+  margin-top: 18px;
+  color: #475569;
+}
+
+.register-link {
+  color: #0f766e;
+  font-weight: 700;
+  text-decoration: none;
+  transition: 0.2s;
+}
+
+.register-link:hover {
+  text-decoration: underline;
+  color: #0d695f;
+}
+
+/* Backdrop */
+.otp-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+/* Card */
+.otp-modal-card {
+  width: 90%;
+  max-width: 400px;
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 1.5rem;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  animation: fadeIn 0.3s ease-out forwards;
+}
+
+/* Title */
+.otp-modal-title {
+  margin-bottom: 0.75rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1f2937;
+  /* gray-800 */
+}
+
+/* Subtitle */
+.otp-modal-subtitle {
+  margin-bottom: 1.5rem;
+  color: #4b5563;
+  /* gray-600 */
+  font-size: 0.875rem;
+}
+
+.otp-modal-email {
+  font-weight: 500;
+  color: #1f2937;
+}
+
+/* Input */
+.otp-modal-input {
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  border-radius: 0.75rem;
+  border: 1px solid #d1d5db;
+  /* gray-300 */
+  outline: none;
+  color: #1f2937;
+  transition: 0.2s;
+}
+
+.otp-modal-input:focus {
+  border-color: #16a34a;
+  /* green-500 */
+  box-shadow: 0 0 0 1px #16a34a;
+}
+
+/* Verify Button */
+.otp-modal-btn {
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 0.5rem;
+  border-radius: 0.75rem;
+  background-color: #16a34a;
+  color: #ffffff;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.otp-modal-btn:hover {
+  background-color: #15803d;
+}
+
+/* Cancel Button */
+.otp-modal-cancel {
+  width: 100%;
+  color: #4b5563;
+  text-decoration: underline;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.otp-modal-cancel:hover {
+  color: #1f2937;
+}
+
+/* Fade animation */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

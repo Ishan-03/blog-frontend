@@ -1,0 +1,161 @@
+/* NAVBAR MAIN WRAPPER */
+.navbar {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  z-index: 50;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* MAIN INNER CONTAINER */
+.navbar-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 12px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+
+/* LOGO */
+.navbar-container img {
+  height: 40px;
+}
+
+.text-2xl {
+  font-size: 1.75rem;
+  font-weight: bold;
+  color: #2563eb;
+}
+
+/* CENTER NAV LINKS */
+.nav-links {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  font-weight: 500;
+  color: #555;
+}
+
+/* Fix misalignment: remove flex:1 and center properly */
+.nav-link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.nav-link:hover {
+  color: #2563eb;
+  transition: 0.2s;
+}
+
+/* CATEGORY DROPDOWN */
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  /* dropdown below the button */
+  left: 0;
+  /* align left to the button */
+  background: white;
+  padding: 8px 0;
+  min-width: 160px;
+  border-radius: 12px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  z-index: 50;
+}
+
+.dropdown-item {
+  padding: 8px 16px;
+  border-radius: 8px;
+  text-align: left;
+  transition: 0.2s;
+}
+
+.dropdown-item:hover {
+  background: #f1f1f1;
+}
+
+/* ROUND BUTTONS */
+.btn-round {
+  padding: 6px 16px;
+  border-radius: 9999px;
+  border: 1px solid #ccc;
+  transition: 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 500;
+  background: white;
+}
+
+.btn-round:hover {
+  background: #f1f1f1;
+}
+
+/* COLORED BUTTONS */
+.btn-primary {
+  background: #2563eb;
+  color: white;
+  border: none;
+}
+
+.btn-primary:hover {
+  background: #1d4ed8;
+}
+
+.btn-success {
+  background: #16a34a;
+  color: white;
+  border: none;
+}
+
+.btn-success:hover {
+  background: #15803d;
+}
+
+/* RIGHT SECTION: search, language, auth */
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* SEARCH INPUT */
+.search-input {
+  border: 1px solid #d1d5db;
+  background: #fff;
+  width: 220px;
+  transition: 0.2s ease;
+  border-radius: 9999px;
+  padding-left: 36px;
+  padding-right: 12px;
+  height: 36px;
+}
+
+.search-input:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
+  outline: none;
+}
+
+/* MOBILE SUPPORT */
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
+  }
+
+  .nav-right {
+    gap: 8px;
+  }
+
+  .search-input {
+    width: 160px;
+  }
+}

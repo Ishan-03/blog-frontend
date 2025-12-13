@@ -1,0 +1,43 @@
+/* About Page CSS */
+.about-container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 120px 16px 60px;
+  /* top padding for fixed navbar */
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  font-family: sans-serif;
+}
+
+.about-card {
+  background: white;
+  padding: 40px 32px;
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  max-width: 800px;
+  width: 100%;
+}
+
+.about-title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 12px;
+  color: #2563eb;
+  text-align: center;
+}
+
+.about-subtitle {
+  font-size: 1.25rem;
+  margin-bottom: 24px;
+  color: #6b7280;
+  text-align: center;
+}
+
+.about-content {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: #4b5563;
+  margin-bottom: 16px;
+  text-align: justify;
+}

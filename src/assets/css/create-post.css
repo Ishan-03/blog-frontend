@@ -1,0 +1,100 @@
+/* Container */
+.create-post-form-container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 120px 16px 60px;
+  display: flex;
+  justify-content: center;
+  font-family: sans-serif;
+}
+
+/* Card */
+.create-post-form-card {
+  width: 100%;
+  max-width: 420px;
+  background: #ffffff;
+  padding: 35px;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Title */
+.create-post-form-title {
+  font-size: 26px;
+  text-align: center;
+  margin-bottom: 5px;
+  font-weight: 600;
+}
+
+/* Subtitle */
+.create-post-form-subtitle {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #666;
+}
+
+/* Labels */
+.create-post-form-label {
+  font-weight: 600;
+  margin-top: 10px;
+  margin-bottom: 5px;
+  display: block;
+}
+
+/* Inputs */
+.create-post-form-input,
+.create-post-form-textarea,
+.create-post-form-file {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  outline: none;
+  transition: 0.2s;
+}
+
+.create-post-form-input:focus,
+.create-post-form-textarea:focus,
+.create-post-form-file:focus {
+  border-color: #4f46e5;
+}
+
+/* Textarea */
+.create-post-form-textarea {
+  height: 160px;
+  resize: vertical;
+}
+
+/* Image preview */
+.create-post-form-preview {
+  margin-top: 15px;
+  width: 100%;
+  height: 192px;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* Submit button */
+.create-post-form-btn {
+  margin-top: 20px;
+  padding: 12px;
+  width: 100%;
+  background: #16a34a;
+  color: white;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.create-post-form-btn:hover {
+  background: #15803d;
+}
+
+.create-post-form-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

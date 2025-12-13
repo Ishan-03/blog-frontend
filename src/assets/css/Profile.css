@@ -1,0 +1,221 @@
+/* Keep container exactly as requested */
+.profile-container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 120px 16px 60px;
+  display: flex;
+  justify-content: center;
+  font-family: 'Inter', sans-serif;
+  background-color: #ffffff;
+}
+
+/* Card */
+.profile-card {
+  width: 100%;
+  max-width: 800px;
+  background-color: #ffffff;
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
+}
+
+.profile-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.12);
+}
+
+/* Header */
+.profile-card__header h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #111827;
+  text-align: center;
+}
+
+.profile-card__header p {
+  color: #6b7280;
+  text-align: center;
+  margin-top: 0.25rem;
+  font-size: 0.95rem;
+}
+
+/* Avatar */
+.profile-card__avatar-wrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.profile-card__avatar-img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #e5e7eb;
+  transition:
+    box-shadow 0.2s,
+    transform 0.2s;
+}
+
+.profile-card__avatar-img:hover {
+  box-shadow: 0 0 0 5px rgba(59, 130, 246, 0.3);
+  transform: scale(1.05);
+}
+
+.profile-card__avatar-upload {
+  position: absolute;
+  bottom: 0;
+  right: calc(50% - 1.75rem);
+  background-color: #3b82f6;
+  padding: 0.5rem;
+  border-radius: 50%;
+  cursor: pointer;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    background-color 0.2s,
+    transform 0.2s;
+}
+
+.profile-card__avatar-upload:hover {
+  background-color: #2563eb;
+  transform: scale(1.1);
+}
+
+/* Info Fields */
+.profile-card__info {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.profile-card__field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.profile-card__field label {
+  font-weight: 500;
+  color: #4b5563;
+}
+
+.profile-card__field input {
+  padding: 0.85rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.75rem;
+  outline: none;
+  font-size: 0.95rem;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+}
+
+.profile-card__field input:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
+
+/* Buttons */
+.profile-card__actions {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.profile-card__btn-primary {
+  flex: 1;
+  background: linear-gradient(90deg, #3b82f6, #2563eb);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 9999px;
+  /* fully rounded */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
+}
+
+.profile-card__btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3);
+}
+
+.profile-card__btn-secondary {
+  flex: 1;
+  background-color: #f3f4f6;
+  color: #111827;
+  padding: 0.75rem 1.5rem;
+  border-radius: 9999px;
+  /* fully rounded */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  transition:
+    background-color 0.2s,
+    transform 0.2s,
+    box-shadow 0.2s;
+}
+
+.profile-card__btn-secondary:hover {
+  background-color: #e5e7eb;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.profile-card__btn-logout {
+  background-color: #ef4444;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 9999px;
+  /* fully rounded */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s,
+    background-color 0.2s;
+  margin-top: 1rem;
+}
+
+.profile-card__btn-logout:hover {
+  background-color: #dc2626;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+}
+
+/* Loading & Error */
+.profile-card__loading,
+.profile-card__error {
+  text-align: center;
+  margin-top: 5rem;
+  color: #6b7280;
+}
+
+.profile-card__error {
+  color: #ef4444;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .profile-card__info {
+    grid-template-columns: 1fr;
+  }
+}
