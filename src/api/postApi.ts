@@ -5,24 +5,27 @@ import axiosInstance from './axiosInstance';
 /* -------------------------------------------------------------------------- */
 
 export interface Category {
+  id: number;
   secure_id: string;
   name: string;
 }
 
 export interface User {
-  id: number;
   username: string;
   firstname: string;
   lastname: string;
 }
 
 export interface Post {
+  id: number;
   secure_id: string;
   title: string;
   content: string;
   image?: string;
   category?: Category;
   author?: User;
+  cover_image?: string;
+  is_published: boolean;
   created_at: string;
   updated_at: string;
 }
@@ -71,8 +74,8 @@ export const getPosts = async (): Promise<Post[]> => {
  * Get single post by ID (public view)
  * NOTE: This is NOT secure_id — admin uses numeric ID.
  */
-export const getPost = async (id: number): Promise<Post> => {
-  const res = await axiosInstance.get(`/admin/retrieve/${id}/`);
+export const getPost = async (secure_id: string): Promise<Post> => {
+  const res = await axiosInstance.get(`/admin/retrieve/${secure_id}/`);
   return res.data;
 };
 
@@ -139,8 +142,8 @@ export const createPost = async (data: FormData) => {
 /**
  * Update a post by ID (admin)
  */
-export const updatePost = async (id: number, data: FormData) => {
-  return axiosInstance.put(`/admin/update/${id}/`, data, {
+export const updatePost = async (secure_id: string, data: FormData) => {
+  return axiosInstance.put(`/admin/update/${secure_id}/`, data, {
     headers: { 'Content-Type': 'multipart/form-data' },
   });
 };
@@ -148,6 +151,6 @@ export const updatePost = async (id: number, data: FormData) => {
 /**
  * Delete a post by ID (admin)
  */
-export const deletePost = async (id: number) => {
-  return axiosInstance.delete(`/admin/delete/${id}/`);
+export const deletePost = async (secure_id: string) => {
+  return axiosInstance.delete(`/admin/delete/${secure_id}/`);
 };

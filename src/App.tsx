@@ -117,7 +117,7 @@ function App() {
         />
 
         <Route
-          path="admin/post/create"
+          path="admin/create"
           element={
             <AdminRoute>
               <CreatePostForm />
@@ -126,7 +126,7 @@ function App() {
         />
 
         <Route
-          path="admin/post/update/:id"
+          path="admin/update/:secure_id"
           element={
             <AdminRoute>
               <UpdatePostForm />

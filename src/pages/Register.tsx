@@ -84,7 +84,7 @@ export default function Register() {
 
   // ---------------- Validation ----------------
   const validateForm = () => {
-    let newErrors: any = {};
+    const newErrors: any = {};
     if (!formData.first_name.trim()) newErrors.first_name = 'First name is required';
     if (!formData.last_name.trim()) newErrors.last_name = 'Last name is required';
     if (!formData.email.trim()) newErrors.email = 'Email is required';

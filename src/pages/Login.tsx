@@ -73,7 +73,7 @@ const Login = () => {
       setOtp('');
       navigate('/');
     },
-    onError: (error: any) => {
+    onError: () => {
       toast.error('Invalid or expired OTP!');
     },
   });
@@ -82,7 +82,7 @@ const Login = () => {
 
   const handleLoginSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    let newErrors: any = {};
+    const newErrors: any = {};
     if (!loginData.email) newErrors.email = 'Email is required';
     if (!loginData.password) newErrors.password = 'Password is required';
     setErrors(newErrors);

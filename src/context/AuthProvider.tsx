@@ -15,7 +15,7 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
     try {
       return jwtDecode<TokenPayload>(accessToken);
     } catch (err) {
-      console.error('Invalid token');
+      console.error(`Invalid token found: ${err}`);
       return null;
     }
   }, [accessToken]);

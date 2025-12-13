@@ -1,5 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { getUserPosts, deleteUserPost } from '../api/postApi';
+import { type Post, getUserPosts, deleteUserPost } from '../api/postApi';
 import { Link } from 'react-router-dom';
 import { Trash2, Edit, Eye, Plus } from 'lucide-react';
 import toast from 'react-hot-toast';
@@ -7,26 +7,26 @@ import '../assets/css/AdminDashboard.css';
 import { confirmToast } from '../util/confirmToast';
 
 // Types
-interface Author {
-  id: number;
-  username: string;
-}
+// interface Author {
+//   id: number;
+//   username: string;
+// }
 
-interface Category {
-  id: number;
-  name: string;
-}
+// interface Category {
+//   id: number;
+//   name: string;
+// }
 
-interface Post {
-  id: number;
-  title: string;
-  secure_id: string;
-  slug: string;
-  content: string;
-  author: Author;
-  category: Category;
-  created_at: string;
-}
+// interface Post {
+//   id: number;
+//   title: string;
+//   secure_id: string;
+//   slug: string;
+//   content: string;
+//   author: Author;
+//   category: Category;
+//   created_at: string;
+// }
 
 export default function Dashboard() {
   const queryClient = useQueryClient();
@@ -104,9 +104,9 @@ export default function Dashboard() {
 
             <tbody className="divide-y divide-gray-200 bg-white">
               {latestPosts.map((post: Post) => (
-                <tr className="table-row" key={post.id}>
+                <tr className="table-row" key={post.secure_id}>
                   <td className="table-cell">{post.title}</td>
-                  <td className="table-cell">{post.author.username}</td>
+                  <td className="table-cell">{post?.author?.username}</td>
                   <td className="table-cell">
                     <span className="category-badge">{post.category?.name}</span>
                   </td>

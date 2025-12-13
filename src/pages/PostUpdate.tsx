@@ -1,47 +1,29 @@
 import { useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { useForm } from 'react-hook-form';
+import { useForm, useWatch } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { getUserPost, updateUserPost, getCategories } from '../api/postApi';
+import {
+  type Post,
+  type Category,
+  getUserPost,
+  updateUserPost,
+  getCategories,
+} from '../api/postApi';
 import toast from 'react-hot-toast';
 
 // ─────────────────────────────
-// ZOD SCHEMA (FIXED)
+// ZOD SCHEMA
 // ─────────────────────────────
 const PostSchema = z.object({
   title: z.string().min(3, 'Title is required'),
   content: z.string().min(5, 'Content is required'),
   category_id: z.string().min(1, 'Category is required'),
-
-  // FIXED: allow File | string | null
   cover_image: z.union([z.instanceof(File), z.string(), z.null()]).optional(),
 });
 
 type PostFormType = z.infer<typeof PostSchema>;
-
-// ─────────────────────────────
-// Types
-// ─────────────────────────────
-interface Author {
-  id: number;
-  username: string;
-}
-
-interface Category {
-  id: number;
-  name: string;
-}
-
-interface Post {
-  id: number;
-  title: string;
-  content: string;
-  author: Author;
-  category: Category;
-  cover_image?: string | null;
-}
 
 export default function UpdatePost() {
   const { secure_id } = useParams<{ secure_id: string }>();
@@ -72,7 +54,7 @@ export default function UpdatePost() {
     register,
     handleSubmit,
     reset,
-    watch,
+    control,
     formState: { errors },
     setValue,
   } = useForm<PostFormType>({
@@ -85,8 +67,12 @@ export default function UpdatePost() {
     },
   });
 
-  // Preview Image Logic
-  const coverImage = watch('cover_image');
+  // ✅ useWatch for safe image preview
+  const coverImage = useWatch({
+    control,
+    name: 'cover_image',
+  });
+
   const imagePreview =
     typeof coverImage === 'string'
       ? coverImage
@@ -103,7 +89,7 @@ export default function UpdatePost() {
     reset({
       title: post.title,
       content: post.content,
-      category_id: String(post.category.id),
+      category_id: String(post?.category?.secure_id),
       cover_image: post.cover_image || null,
     });
   }, [post, reset]);
@@ -113,21 +99,19 @@ export default function UpdatePost() {
   // ─────────────────────────────
   const { mutate, isPending } = useMutation({
     mutationFn: (formData: FormData) => updateUserPost(secure_id as string, formData),
-
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['posts'] });
       queryClient.invalidateQueries({ queryKey: ['post', secure_id] });
       toast.success('Post updated successfully!');
       navigate('/dashboard');
     },
-
     onError: () => {
       toast.error('Error updating post!');
     },
   });
 
   // ─────────────────────────────
-  // Submit Handler (FIXED)
+  // Submit Handler
   // ─────────────────────────────
   const onSubmit = (data: PostFormType) => {
     if (!post) return;
@@ -137,9 +121,6 @@ export default function UpdatePost() {
     formData.append('content', data.content);
     formData.append('category_id', data.category_id);
 
-    // DO NOT SEND author – backend manages it
-    // formData.append('author', post.author.id.toString());
-
     if (data.cover_image instanceof File) {
       formData.append('cover_image', data.cover_image);
     }
@@ -147,6 +128,9 @@ export default function UpdatePost() {
     mutate(formData);
   };
 
+  // ─────────────────────────────
+  // Render Loading / Errors
+  // ─────────────────────────────
   if (!secure_id) return <div className="py-20 text-center">Invalid Post URL</div>;
   if (postPending) return <div className="py-20 text-center">Loading post...</div>;
   if (!post) return <div className="py-20 text-center">Post not found</div>;
@@ -182,7 +166,7 @@ export default function UpdatePost() {
                 Select category
               </option>
               {categories.map((cat) => (
-                <option key={cat.id} value={cat.id}>
+                <option key={cat.secure_id} value={cat.secure_id}>
                   {cat.name}
                 </option>
               ))}

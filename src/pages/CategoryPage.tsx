@@ -1,6 +1,6 @@
 import { useParams, Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import { getPostsByCategory } from '../api/postApi';
+import { type Post, getPostsByCategory } from '../api/postApi';
 
 export default function CategoryPage() {
   const { secure_id } = useParams();
@@ -35,7 +35,7 @@ export default function CategoryPage() {
 
       {/* POSTS GRID */}
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {posts.map((post: any) => (
+        {posts.map((post: Post) => (
           <div
             key={post.secure_id}
             className="flex flex-col overflow-hidden rounded-xl border border-gray-200 bg-white shadow transition-shadow duration-300 hover:shadow-lg"

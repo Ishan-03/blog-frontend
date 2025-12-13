@@ -37,7 +37,7 @@ export default function DashboardHome() {
 
   // Delete post
   const deleteMutation = useMutation({
-    mutationFn: (id: number) => deletePost(id),
+    mutationFn: (secure_id: string) => deletePost(secure_id),
     onSuccess: () => {
       // queryClient.invalidateQueries({ queryKey: ['posts'] }); -> It tells React Query: “This data is outdated, please refetch it. ” When you delete a post, your backend updates — but React Query’s cache still has the OLD data.
 
@@ -47,9 +47,9 @@ export default function DashboardHome() {
     onError: () => toast.error('Failed to delete post'),
   });
 
-  const handleDelete = (id: number) => {
+  const handleDelete = (secure_id: string) => {
     confirmToast('Are you sure you want to delete this post?', () => {
-      deleteMutation.mutate(id);
+      deleteMutation.mutate(secure_id);
     });
   };
 
@@ -111,16 +111,22 @@ export default function DashboardHome() {
                   {/* Center Action Buttons */}
                   <td className="table-cell text-center">
                     <div className="flex items-center justify-center gap-2">
-                      <Link to={`/admin/post/${post.id}/view`} className="action-btn view-btn">
+                      <Link
+                        to={`/admin/${post.secure_id}`}
+                        className="action-btn view-btn"
+                      >
                         <Eye size={16} /> View
                       </Link>
 
-                      <Link to={`/admin/post/update/${post.id}`} className="action-btn edit-btn">
+                      <Link
+                        to={`/admin/update/${post.secure_id}`}
+                        className="action-btn edit-btn"
+                      >
                         <Edit size={16} /> Edit
                       </Link>
 
                       <button
-                        onClick={() => handleDelete(post.id)}
+                        onClick={() => handleDelete(post.secure_id)}
                         className="action-btn delete-btn"
                       >
                         <Trash2 size={16} /> Delete

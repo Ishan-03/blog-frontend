@@ -1,119 +1,166 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { getPost, updatePost, getCategories } from '../api/postApi';
+import { useForm, useWatch } from 'react-hook-form';
 import toast from 'react-hot-toast';
 
-interface Author {
-  id: number;
-  username: string;
-}
+import { type Post, type Category, getPost, updatePost, getCategories } from '../api/postApi';
 
-interface Category {
-  id: number;
-  name: string;
-}
+/* ───────────────────────────── */
+/* TYPES                         */
+/* ───────────────────────────── */
 
-interface Post {
-  id: number;
+type FormValues = {
   title: string;
   content: string;
-  author: Author;
-  category: number;
-  cover_image?: string;
-  is_published: boolean; // <--- ADD THIS
-}
+  category_id: string;
+  is_published: boolean;
+  cover_image: File | null;
+};
+
+/* ───────────────────────────── */
+/* COMPONENT                     */
+/* ───────────────────────────── */
 
 export default function UpdatePostForm() {
-  const { id } = useParams<{ id: string }>();
+  const { secure_id } = useParams<{ secure_id: string }>();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
 
-  const { data: post } = useQuery<Post>({
-    queryKey: ['post', id],
-    queryFn: () => getPost(Number(id)),
-    enabled: !!id,
+  /* ───────────────────────────── */
+  /* FETCH POST                    */
+  /* ───────────────────────────── */
+
+  const {
+    data: post,
+    isLoading: postLoading,
+    isError: postError,
+  } = useQuery<Post>({
+    queryKey: ['post', secure_id],
+    queryFn: () => getPost(secure_id!),
+    enabled: !!secure_id,
   });
+
+  /* ───────────────────────────── */
+  /* FETCH CATEGORIES              */
+  /* ───────────────────────────── */
 
   const { data: categories = [] } = useQuery<Category[]>({
     queryKey: ['categories'],
     queryFn: getCategories,
   });
 
-  // Local state
-  const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
-  const [categoryId, setCategoryId] = useState<number | null>(null);
-  const [isPublished, setIsPublished] = useState(false); // <--- NEW STATE
-  const [coverImage, setCoverImage] = useState<File | null>(null);
-  const [imagePreview, setImagePreview] = useState<string | null>(null);
+  /* ───────────────────────────── */
+  /* FORM                          */
+  /* ───────────────────────────── */
 
-  // Populate fields
+  const { register, handleSubmit, reset, setValue, control } = useForm<FormValues>({
+    defaultValues: {
+      title: '',
+      content: '',
+      category_id: '',
+      is_published: false,
+      cover_image: null,
+    },
+  });
+
+  /* ───────────────────────────── */
+  /* SYNC POST → FORM (SAFE)       */
+  /* ───────────────────────────── */
+
   useEffect(() => {
     if (!post) return;
 
-    setTitle(post.title);
-    setContent(post.content);
-    setCategoryId(post.category);
-    setIsPublished(post.is_published); // <--- LOAD VALUE
-    setImagePreview(post.cover_image || null);
-  }, [post]);
+    reset({
+      title: post.title,
+      content: post.content,
+      category_id: post.category?.secure_id ?? '',
+      is_published: post.is_published,
+      cover_image: null,
+    });
+  }, [post, reset]);
+
+  /* ───────────────────────────── */
+  /* IMAGE PREVIEW                 */
+  /* ───────────────────────────── */
+
+  const coverImage = useWatch({
+    control,
+    name: 'cover_image',
+  });
+
+  const imagePreview = useMemo(() => {
+    if (coverImage instanceof File) {
+      return URL.createObjectURL(coverImage);
+    }
+    return post?.cover_image ?? null;
+  }, [coverImage, post]);
+
+  /* ───────────────────────────── */
+  /* MUTATION                      */
+  /* ───────────────────────────── */
 
   const { mutate, isPending } = useMutation({
-    mutationFn: (formData: FormData) => updatePost(Number(id), formData),
+    mutationFn: (formData: FormData) => updatePost(secure_id!, formData),
+
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['posts'] });
-      queryClient.invalidateQueries({ queryKey: ['post', id] });
+      queryClient.invalidateQueries({ queryKey: ['post', secure_id] });
       toast.success('Post updated successfully!');
       navigate('/admin/dashboard');
     },
+
     onError: () => {
       toast.error('Error updating post!');
     },
   });
 
-  const handleImageChange = (fileList: FileList | null) => {
-    if (!fileList?.length) {
-      setCoverImage(null);
-      setImagePreview(post?.cover_image || null);
-      return;
-    }
-    const file = fileList[0];
-    setCoverImage(file);
-    setImagePreview(URL.createObjectURL(file));
-  };
+  /* ───────────────────────────── */
+  /* SUBMIT                        */
+  /* ───────────────────────────── */
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!post) return;
-
+  const onSubmit = (data: FormValues) => {
     const formData = new FormData();
-    formData.append('author', post.author.toString());
-    formData.append('title', title);
-    formData.append('content', content);
-    formData.append('category', (categoryId ?? post.category).toString());
-    formData.append('is_published', isPublished ? 'true' : 'false'); // <--- SEND TO BACKEND
 
-    if (coverImage) formData.append('cover_image', coverImage);
+    formData.append('title', data.title);
+    formData.append('content', data.content);
+    formData.append('category_id', data.category_id);
+    formData.append('is_published', String(data.is_published));
+
+    if (data.cover_image) {
+      formData.append('cover_image', data.cover_image);
+    }
 
     mutate(formData);
   };
 
-  if (!post) return <div className="py-20 text-center">Loading post...</div>;
+  /* ───────────────────────────── */
+  /* STATES                        */
+  /* ───────────────────────────── */
+
+  if (postLoading) {
+    return <div className="py-20 text-center">Loading post...</div>;
+  }
+
+  if (postError || !post) {
+    return <div className="py-20 text-center">Post not found</div>;
+  }
+
+  /* ───────────────────────────── */
+  /* UI                            */
+  /* ───────────────────────────── */
 
   return (
     <div className="mx-auto flex max-w-[960px] justify-center px-4 pt-[120px] pb-[60px]">
       <div className="w-full max-w-[600px] rounded-2xl bg-white p-6 shadow-lg">
         <h2 className="mb-6 text-center text-2xl font-semibold">Edit Post</h2>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           {/* Title */}
           <div>
             <label className="font-medium">Title</label>
             <input
-              type="text"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
+              {...register('title', { required: true })}
               className="mt-1 w-full rounded-xl border p-3"
             />
           </div>
@@ -122,8 +169,7 @@ export default function UpdatePostForm() {
           <div>
             <label className="font-medium">Content</label>
             <textarea
-              value={content}
-              onChange={(e) => setContent(e.target.value)}
+              {...register('content', { required: true })}
               className="mt-1 h-40 w-full rounded-xl border p-3"
             />
           </div>
@@ -132,44 +178,38 @@ export default function UpdatePostForm() {
           <div>
             <label className="font-medium">Category</label>
             <select
-              value={categoryId ?? post.category}
-              onChange={(e) => setCategoryId(Number(e.target.value))}
+              {...register('category_id', { required: true })}
               className="mt-1 w-full rounded-xl border p-3"
             >
               <option value="" disabled>
                 Select category
               </option>
               {categories.map((cat) => (
-                <option key={cat.id} value={cat.id}>
+                <option key={cat.secure_id} value={cat.secure_id}>
                   {cat.name}
                 </option>
               ))}
             </select>
           </div>
 
-          {/* Publish Toggle */}
+          {/* Publish */}
           <div className="flex items-center gap-3">
-            <input
-              type="checkbox"
-              checked={isPublished}
-              onChange={(e) => setIsPublished(e.target.checked)}
-              className="h-5 w-5"
-            />
+            <input type="checkbox" {...register('is_published')} className="h-5 w-5" />
             <label className="font-medium">Publish this post</label>
           </div>
 
-          {/* Cover Image */}
+          {/* Cover image */}
           <div>
             <label className="font-medium">Cover Image</label>
             <input
               type="file"
               accept="image/*"
-              onChange={(e) => handleImageChange(e.target.files)}
+              onChange={(e) => setValue('cover_image', e.target.files?.[0] ?? null)}
               className="mt-1 w-full rounded-xl border p-3"
             />
           </div>
 
-          {/* Image Preview */}
+          {/* Preview */}
           {imagePreview && (
             <img
               src={imagePreview}
