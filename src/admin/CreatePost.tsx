@@ -15,6 +15,7 @@ interface FormData {
 
 interface Category {
   id: string;
+  secure_id: string;
   name: string;
 }
 
@@ -52,7 +53,7 @@ export default function CreatePostForm() {
     const fetchCategories = async () => {
       try {
         const res = await axiosInstance.get('/categories/');
-        //console.log(res.data.results)
+        console.log(res.data.results)
         setCategories(res.data.results);
       } catch (err) {
         console.error('Failed to fetch categories:', err);
@@ -67,9 +68,14 @@ export default function CreatePostForm() {
 
       const formData = new FormData();
       formData.append('author', String(authorId)); // use decoded author ID
-      formData.append('category', data.category);
+      //formData.append('category_id', data.category);
       formData.append('title', data.title);
       formData.append('content', data.content);
+
+      // Category dropdown submit
+      if (data.category) {
+        formData.append('category_id', data.category); // secure_id UUID string
+      }
 
       if (data.cover_image?.length > 0) {
         formData.append('cover_image', data.cover_image[0]);
@@ -116,7 +122,7 @@ export default function CreatePostForm() {
           <select {...register('category', { required: true })} className="create-post-form-input">
             <option value="">Select a category</option>
             {categories.map((cat) => (
-              <option key={cat.id} value={cat.id}>
+              <option key={cat.secure_id} value={cat.secure_id}>
                 {cat.name}
               </option>
             ))}

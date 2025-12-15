@@ -15,6 +15,7 @@ interface FormData {
 
 interface Category {
   id: string;
+  secure_id: string;
   name: string;
 }
 
@@ -62,14 +63,15 @@ export default function CreatePost() {
   }, []);
 
   const onSubmit = async (data: FormData) => {
-    //console.log(data);
+  
+  
 
     try {
       setLoading(true);
 
       const formData = new FormData();
       formData.append('author', String(authorId)); // use decoded author ID
-      formData.append('category_id', data.category);
+      formData.append('category_id', data?.category);
       formData.append('title', data.title);
       formData.append('content', data.content);
 
@@ -103,6 +105,8 @@ export default function CreatePost() {
     setImagePreview(url);
   };
 
+  //console.log(categories);
+
   return (
     <div className="create-post-form-container">
       <div className="create-post-form-card">
@@ -118,7 +122,7 @@ export default function CreatePost() {
           <select {...register('category', { required: true })} className="create-post-form-input">
             <option value="">Select a category</option>
             {categories.map((cat) => (
-              <option key={cat.id} value={cat.id}>
+              <option key={cat.secure_id} value={cat.secure_id}>
                 {cat.name}
               </option>
             ))}

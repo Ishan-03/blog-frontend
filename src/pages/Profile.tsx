@@ -32,7 +32,7 @@ export default function Profile() {
     return <Error message={message} />;
   }
 
-  console.log(data);
+  //console.log(data);
 
   return (
     <div className="profile-container">

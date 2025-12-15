@@ -81,7 +81,7 @@ export default function DashboardHome() {
         <div className="mb-6 flex items-center justify-between">
           <h2 className="text-2xl font-semibold text-gray-800">Latest Posts</h2>
 
-          <Link to="/admin/post/create" className="create-btn">
+          <Link to="/admin/create" className="create-btn">
             <Plus size={18} /> Create New Post
           </Link>
         </div>
